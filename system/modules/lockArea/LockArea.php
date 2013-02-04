@@ -54,23 +54,19 @@ class LockArea extends Backend
         $mixLockStates = $GLOBALS['TL_CONFIG']['lockArea_pageTree'];
         $mixLockStates = deserialize($mixLockStates);
 
-        if (!is_array($mixLockStates) || empty($mixLockStates))
+        if (is_array($mixLockStates) && !empty($mixLockStates))
         {
-            return;
+            self::$arrPageIdCache = $mixLockStates;
         }
-
-        self::$arrPageIdCache = $mixLockStates;
 
         // Get the lockstates article
         $mixLockStates = $GLOBALS['TL_CONFIG']['lockArea_articleTree'];
         $mixLockStates = deserialize($mixLockStates);
 
-        if (!is_array($mixLockStates) || empty($mixLockStates))
+        if (is_array($mixLockStates) && !empty($mixLockStates))
         {
-            return;
+            self::$arrArticleIdCache = $mixLockStates;
         }
-
-        self::$arrArticleIdCache = $mixLockStates;
     }
 
     ////////////////////////////////////////////////////////////////////////////
