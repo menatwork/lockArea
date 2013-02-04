@@ -1,41 +1,14 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2012 Leo Feyer
  *
- * Formerly known as TYPOlight Open Source CMS.
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 3 of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at <http://www.gnu.org/licenses/>.
- *
- * PHP version 5
- * @copyright  Leo Feyer 2005-2012
- * @author     Leo Feyer <http://www.contao.org>
- * @package    Backend
- * @license    LGPL
+ * @copyright  MEN AT WORK 2013 
+ * @package    lockArea
+ * @license    GNU/LGPL 
  * @filesource
  */
 
-/**
- * Class PageTree
- *
- * Provide methods to handle input field "page tree".
- * @copyright  Leo Feyer 2005-2012
- * @author     Leo Feyer <http://www.contao.org>
- * @package    Controller
- */
 class ArticleTree extends Widget
 {
 
@@ -264,7 +237,7 @@ class ArticleTree extends Widget
             $folderAttribute = '';
             $img             = $blnIsOpen ? 'folMinus.gif' : 'folPlus.gif';
             $alt             = $blnIsOpen ? $GLOBALS['TL_LANG']['MSC']['collapseNode'] : $GLOBALS['TL_LANG']['MSC']['expandNode'];
-            $return .= '<a href="' . $this->addToUrl($flag . 'tg=' . $id) . '" title="' . specialchars($alt) . '" onclick="Backend.getScrollOffset();return AjaxRequest.togglePagetree(this,\'' . $xtnode . '_' . $id . '\',\'' . $this->strField . '\',\'' . $this->strName . '\',' . $level . ')">' . $this->generateImage($img, '', 'style="margin-right:2px"') . '</a>';
+            $return .= '<a href="' . $this->addToUrl($flag . 'tg=' . $id) . '" title="' . specialchars($alt) . '" onclick="Backend.getScrollOffset();return AjaxArticleTreeRequest.togglePagetree(this,\'' . $xtnode . '_' . $id . '\',\'' . $this->strField . '\',\'' . $this->strName . '\',' . $level . ')">' . $this->generateImage($img, '', 'style="margin-right:2px"') . '</a>';
         }
 
         $sub                = 0;
@@ -305,7 +278,7 @@ class ArticleTree extends Widget
         {
             while ($objArticleNodes->next())
             {
-                $return .= "\n  " . '<li class="tl_file" onmouseover="Theme.hoverDiv(this,1)" onmouseout="Theme.hoverDiv(this,0)">';
+                $return .= "\n  " . '<li class="tl_file tl_article" onmouseover="Theme.hoverDiv(this,1)" onmouseout="Theme.hoverDiv(this,0)">';
                 $return .= '<div class="tl_left" style="padding-left:' . ($intMargin + (3 * $intSpacing)) . 'px">';
                 $return .= '<img src="system/themes/default/images/articles.gif" width="18" height="18" alt="">';
                 $return .= $objArticleNodes->title;
