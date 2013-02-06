@@ -415,9 +415,7 @@ class LockArea extends Backend
         }
 
         $this->import($arrParent[0]);
-        $objParent = new $arrParent[0]();
-
-        return $objParent->$arrParent[1]($row, $href, $label, $title, $icon, $attributes);
+        return $this->$arrParent[0]->$arrParent[1]($row, $href, $label, $title, $icon, $attributes);
     }
 
     /**
@@ -474,9 +472,7 @@ class LockArea extends Backend
         }
 
         $this->import($arrParent[0]);
-        $objParent = new $arrParent[0]();
-
-        return $objParent->$arrParent[1]($row, $href, $label, $title, $icon, $attributes);
+        return $this->$arrParent[0]->$arrParent[1]($row, $href, $label, $title, $icon, $attributes);
     }
 
     /**
@@ -537,9 +533,7 @@ class LockArea extends Backend
         }
 
         $this->import($arrParent[0]);
-        $objParent = new $arrParent[0]();
-
-        return $objParent->$arrParent[1]($row, $href, $label, $title, $icon, $attributes);
+        return $this->$arrParent[0]->$arrParent[1]($row, $href, $label, $title, $icon, $attributes);
     }
 
 }
