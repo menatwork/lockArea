@@ -283,9 +283,9 @@ class LockArea extends Backend
      * 
      * @return string
      */
-    public function deletePage($row, $href, $label, $title, $icon, $attributes)
+    public function deletePage($row, $href, $label, $title, $icon, $attributes, $root)
     {
-        return $this->functionPage($row, $href, $label, $title, $icon, $attributes, 'delete');
+        return $this->functionPage($row, $href, $label, $title, $icon, $attributes, 'delete', $root);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -379,11 +379,11 @@ class LockArea extends Backend
      * @param type $strFunktion
      * @return string
      */
-    protected function functionPage($row, $href, $label, $title, $icon, $attributes, $strFunktion)
+    protected function functionPage($row, $href, $label, $title, $icon, $attributes, $strFunktion, $root = null)
     {
         if (empty(self::$arrPageIdCache))
         {
-            return $this->callParentFunctionPage($row, $href, $label, $title, $icon, $attributes, $strFunktion);
+            return $this->callParentFunctionPage($row, $href, $label, $title, $icon, $attributes, $strFunktion, $root);
         }
 
         if (in_array($row['id'], self::$arrPageIdCache))
@@ -391,7 +391,7 @@ class LockArea extends Backend
             return $this->generateImage(preg_replace('/\.gif$/i', '_.gif', $icon)) . ' ';
         }
 
-        return $this->callParentFunctionPage($row, $href, $label, $title, $icon, $attributes, $strFunktion);
+        return $this->callParentFunctionPage($row, $href, $label, $title, $icon, $attributes, $strFunktion, $root);
     }
 
     /**
@@ -405,7 +405,7 @@ class LockArea extends Backend
      * @param type $strFunktion
      * @return string
      */
-    protected function callParentFunctionPage($row, $href, $label, $title, $icon, $attributes, $strFunction)
+    protected function callParentFunctionPage($row, $href, $label, $title, $icon, $attributes, $strFunction, $root = null)
     {
         $arrParent = $GLOBALS['TL_DCA']['tl_page']['list']['operations'][$strFunction]['old_button_callback'];
 
@@ -414,8 +414,16 @@ class LockArea extends Backend
             return '';
         }
 
-        $this->import($arrParent[0]);
-        return $this->$arrParent[0]->$arrParent[1]($row, $href, $label, $title, $icon, $attributes);
+        if ($strFunction == 'delete')
+        {                   
+            $this->import($arrParent[0]);            
+            call_user_func_array(array($this->$arrParent[0], $arrParent[1]), array($row, $href, $label, $title, $icon, $attributes, $root));
+        }
+        else
+        {
+            $this->import($arrParent[0]);
+            return $this->$arrParent[0]->$arrParent[1]($row, $href, $label, $title, $icon, $attributes);
+        }
     }
 
     /**

@@ -27,4 +27,10 @@ if (TL_MODE == 'BE')
     $GLOBALS['TL_HOOKS']['executePostActions'][] = array('ArticleTreeAjax', 'executePostActions');
     $GLOBALS['TL_HOOKS']['executePreActions'][] = array('ArticleTreeAjax', 'executePreActions');
 }
+
+$GLOBALS['SYC_CONFIG']['local_blacklist'] = array_merge( (array) $GLOBALS['SYC_CONFIG']['local_blacklist'], array(   
+    'lockArea_pageTree',
+    'lockArea_articleTree'
+));
+
 ?>
